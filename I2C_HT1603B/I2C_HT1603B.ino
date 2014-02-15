@@ -94,7 +94,8 @@ void display_icon()
 
 void display(float dat) {
     unsigned long temp;
-    char i,sum;
+    char i;
+    char sum;
     unsigned char num[8]= {0};
 
     num[7] = 0;
@@ -104,7 +105,7 @@ void display(float dat) {
     }
     
     Wire.beginTransmission(SLAVE_ADDRESS);
-    Wire.write(0xe0); 
+    //Wire.write(0xe0); 
     Wire.write(0); 
 
     if (dat < 100000 ) {
@@ -117,6 +118,7 @@ void display(float dat) {
         num[1] = temp / 10 %10;
         num[0] = temp %10;
         sum = 0;
+        
         for (i = 6;i >2; i--) {
             sum = num[i] + sum;
             if (sum > 0) {
@@ -130,7 +132,7 @@ void display(float dat) {
         }
 
         num[sum + 1] = num[7];
-        num[2] = num[2] | 0x08;
+        num[2] = num[2] | 0x08; // ドットをつける
 
         for (i = 0; i < 14-sum; i++) {
             Wire.write(0); 

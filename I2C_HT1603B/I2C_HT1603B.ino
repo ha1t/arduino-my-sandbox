@@ -104,8 +104,9 @@ void display(float dat) {
     }
     
     Wire.beginTransmission(SLAVE_ADDRESS);
-    write(0xe0);
-    write(0);
+    Wire.write(0xe0); 
+    Wire.write(0); 
+
     if (dat < 100000 ) {
         temp = 100 * dat; //
         num[6] = temp / 1000000;
@@ -132,25 +133,20 @@ void display(float dat) {
         num[2] = num[2] | 0x08;
 
         for (i = 0; i < 14-sum; i++) {
-            write(0);
+            Wire.write(0); 
         }
 
         for (i = sum +1; i >= 0 ;i--) {
-            write(num[i]);
+            Wire.write(num[i]);
         }
 
     } else {
 
         for (i = 0; i < 16; i++) {
-            write(0x20);
+            Wire.write(0x20);
         }
     }
-    write(0);
+    Wire.write(0);
     Wire.endTransmission(); 
 }
 
-//===================================
-void write(unsigned char dat)
-{
-    Wire.write(dat); 
-}

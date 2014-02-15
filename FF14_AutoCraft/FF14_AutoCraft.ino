@@ -43,7 +43,7 @@ void heisty_touch() {
   Keyboard.print(" <me>");
   delay(200);
   Keyboard.write(KEY_RETURN);
-  delay(3500);
+  delay(2900);
 }
 
 void tyuukyuukakou() {
@@ -63,7 +63,7 @@ void kakou() {
   Keyboard.print(" <me>");
   delay(200);
   Keyboard.write(KEY_RETURN);
-  delay(3500);
+  delay(3000);
 }
 
 void masters_mend() {
@@ -188,6 +188,22 @@ void kenyaku() {
   delay(2500);
 }
 
+void kenyaku2() {
+  select_action('2');
+  Keyboard.write(KEY_LEFT_ARROW);
+  delay(100);
+  Keyboard.write(KEY_LEFT_ARROW);
+  delay(100);
+  Keyboard.write(KEY_LEFT_ARROW);
+  delay(100);
+  Keyboard.write('8');
+  delay(100);
+  Keyboard.print(" <me>");
+  delay(200);
+  Keyboard.write(KEY_RETURN);
+  delay(2500);
+}
+
 void manipulation() {
   select_action('2');
   Keyboard.write(KEY_LEFT_ARROW);
@@ -197,6 +213,22 @@ void manipulation() {
   Keyboard.write(KEY_LEFT_ARROW);
   delay(100);
   Keyboard.write('3');
+  delay(100);
+  Keyboard.print(" <me>");
+  delay(200);
+  Keyboard.write(KEY_RETURN);
+  delay(2500);
+}
+
+void inovation() {
+  select_action('2');
+  Keyboard.write(KEY_LEFT_ARROW);
+  delay(100);
+  Keyboard.write(KEY_LEFT_ARROW);
+  delay(100);
+  Keyboard.write(KEY_LEFT_ARROW);
+  delay(100);
+  Keyboard.write('7');
   delay(100);
   Keyboard.print(" <me>");
   delay(200);
@@ -217,7 +249,18 @@ void comfart_zone() {
   Keyboard.print(" <me>");
   delay(200);
   Keyboard.write(KEY_RETURN);
-  delay(1500);
+  delay(1800);
+}
+
+void bierugo() {
+  select_action('3');
+  delay(100);
+  Keyboard.write('9');
+  delay(100);
+  Keyboard.print(" <me>");
+  delay(200);
+  Keyboard.write(KEY_RETURN);
+  delay(2200);
 }
 
 void select_action(char number) {
@@ -234,41 +277,47 @@ void select_action(char number) {
   delay(100);
 }
 
-void create_70() {
-  Keyboard.write(KEY_RETURN);
-  delay(100);
-  Keyboard.write(KEY_RETURN);
-  delay(100);
-
-  inner_quiet();
-  stedy_hand2();
-  manipulation();
-  kakou();
-  kakou();
-  kakou();
-  kakou();
-  kakou();
-  tyuukyuukakou();
-  mohansagyou2();
-}
-
-void create_40() {
+// Lv38 CP304
+void create_80() {
   comfart_zone();
   inner_quiet();
   stedy_hand2();
-  manipulation();
+  inovation();
+  kakou();
+  kakou();
   kakou();
   heisty_touch();
+  manipulation();
+  mohansagyou2();
+
+  comfart_zone();
+  stedy_hand2();
   heisty_touch();
   heisty_touch();
+  heisty_touch();
+  great_stride();
+  bierugo();
+  heisty_touch();
+  mohansagyou2();
+}
+
+// boa rather Lv30 CP279
+void create_40() {
+  comfart_zone();
+  inner_quiet();
+  kenyaku2();
 
   stedy_hand2();
-  manipulation();
-  heisty_touch();
-  heisty_touch();
+  kakou();
+  kakou();
   heisty_touch();
   kakou();
-  mohansagyou2();
+  kakou();
+ 
+  stedy_hand();
+  great_stride();
+  inovation();
+  bierugo();
   mohansagyou2();
 }
 
@@ -279,17 +328,38 @@ void loop() {
     delay(500);
   }
 
-  Keyboard.print("/echo v20");
+  Keyboard.print("/echo v28");
   delay(100);
   Keyboard.write(KEY_RETURN);
   delay(500);
 
-  for (int i = 0; i < 80; i++) {  
+  for (int i = 0; i < 110; i++) {  
 
     Keyboard.write(KEY_RETURN);
     delay(100);
+    
+    /*
+    Keyboard.write(KEY_UP_ARROW);
+    delay(100);
+    Keyboard.write(KEY_UP_ARROW);
+    delay(100);
+    Keyboard.write(KEY_RIGHT_ARROW);
+    delay(100);
+    Keyboard.write(KEY_RIGHT_ARROW);
+    delay(100);
+  
     Keyboard.write(KEY_RETURN);
-    delay(200);
+    delay(100);
+    Keyboard.write(KEY_RETURN);
+    delay(100);
+    Keyboard.write(KEY_DOWN_ARROW);
+    delay(100);
+    Keyboard.write(KEY_DOWN_ARROW);
+    delay(100);
+    */
+    
+    Keyboard.write(KEY_RETURN);
+    delay(2000);
 
     create_40();
     delay(3000);

@@ -1,7 +1,7 @@
 
 #include <Wire.h>
 
-#define ADRS 0x38 
+#define SLAVE_ADDRESS 0x38 
 
 #define vddPin 9
 #define gndPin 10
@@ -27,11 +27,11 @@ unsigned char num_table[16] = {
 
 void i2cstart()
 {
-    Wire.beginTransmission(ADRS);
+    Wire.beginTransmission(SLAVE_ADDRESS);
     Wire.write(0x48);
     Wire.endTransmission();
 
-    Wire.beginTransmission(ADRS);
+    Wire.beginTransmission(SLAVE_ADDRESS);
     Wire.write(0xe0);
     Wire.write(0x00);
     Wire.endTransmission();
@@ -42,12 +42,12 @@ void i2cclear()
     byte i;
     byte numx;
     for (i = 0x07; i < 0x48; i = i+1) {
-        Wire.beginTransmission(ADRS);
+        Wire.beginTransmission(SLAVE_ADDRESS);
         Wire.write(0x48);
         Wire.write(i);
         Wire.endTransmission(); 
 
-        Wire.beginTransmission(ADRS);
+        Wire.beginTransmission(SLAVE_ADDRESS);
         Wire.write(0xe0);
         Wire.write(0x00);
         Wire.endTransmission();
@@ -85,24 +85,27 @@ void loop() {
     }
 }
 
+void display_icon()
+{
+    Wire.beginTransmission(SLAVE_ADDRESS);
+    Wire.write(0x48); 
+    Wire.endTransmission(); 
+}
+
 void display(float dat) {
     unsigned long temp;
     char i,sum;
     unsigned char num[8]= {0};
+
+    num[7] = 0;
     if (dat < 0) {
         dat = - dat;
         num[7] = 0x20;
-    } else {
-        num[7] = 0;
     }
-    start();
-    write(0x48);
-    stop();
-    start();
+    
+    Wire.beginTransmission(SLAVE_ADDRESS);
     write(0xe0);
     write(0);
-    // stop();
-    // start();
     if (dat < 100000 ) {
         temp = 100 * dat; //
         num[6] = temp / 1000000;
@@ -113,42 +116,39 @@ void display(float dat) {
         num[1] = temp / 10 %10;
         num[0] = temp %10;
         sum = 0;
-        for (i = 6;i >2;i--) {
+        for (i = 6;i >2; i--) {
             sum = num[i] + sum;
-            if (sum > 0) break;
+            if (sum > 0) {
+              break;
+            }
         }
+
         sum = i;
         for (i = 0;i <= sum;i++) {
             num[i] = num_table[num[i]];
         }
+
         num[sum + 1] = num[7];
         num[2] = num[2] | 0x08;
+
         for (i = 0; i < 14-sum; i++) {
             write(0);
         }
+
         for (i = sum +1; i >= 0 ;i--) {
             write(num[i]);
         }
+
     } else {
-        for(i = 0; i < 16; i++) {
+
+        for (i = 0; i < 16; i++) {
             write(0x20);
         }
     }
     write(0);
-    stop();
-}
-//
-//============================
-void start(void)
-{
-    Wire.beginTransmission(ADRS);
-}
-//==============================
-void stop(void)
-{
     Wire.endTransmission(); 
 }
-//
+
 //===================================
 void write(unsigned char dat)
 {

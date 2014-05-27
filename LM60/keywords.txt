@@ -1,0 +1,1 @@
+lm60_get_temp KEYWORD2

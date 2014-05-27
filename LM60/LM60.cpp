@@ -1,6 +1,10 @@
 #include "arduino.h"
 #include "LM60.h"
 
+// LM60
+// @url http://brown.ap.teacup.com/nekosan0/681.html
+// @url http://ken-nou-kou.blogspot.com/2009/06/lm60biz.html
+
 float lm60_get_temp(int pin) {
 
   long mV = 0;

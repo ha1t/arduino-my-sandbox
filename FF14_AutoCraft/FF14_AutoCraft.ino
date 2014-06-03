@@ -4,6 +4,7 @@ void setup() {
   // pullup resistor so it goes high unless
   // connected to ground:
   pinMode(2, INPUT_PULLUP);
+
   // initialize control over the keyboard:
   Keyboard.begin();
 }
@@ -310,7 +311,7 @@ void create_40() {
   stedy_hand2();
   kakou();
   kakou();
-  heisty_touch();
+  kakou();
   kakou();
   kakou();
  
@@ -327,8 +328,8 @@ void loop() {
     // do nothing until pin 2 goes low
     delay(500);
   }
-
-  Keyboard.print("/echo v28");
+  
+  Keyboard.print("/echo v29");
   delay(100);
   Keyboard.write(KEY_RETURN);
   delay(500);
@@ -337,7 +338,6 @@ void loop() {
 
     Keyboard.write(KEY_RETURN);
     delay(100);
-    
     /*
     Keyboard.write(KEY_UP_ARROW);
     delay(100);
@@ -350,14 +350,11 @@ void loop() {
   
     Keyboard.write(KEY_RETURN);
     delay(100);
-    Keyboard.write(KEY_RETURN);
-    delay(100);
     Keyboard.write(KEY_DOWN_ARROW);
     delay(100);
     Keyboard.write(KEY_DOWN_ARROW);
     delay(100);
     */
-    
     Keyboard.write(KEY_RETURN);
     delay(2000);
 

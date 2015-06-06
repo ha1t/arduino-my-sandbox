@@ -38,10 +38,10 @@ void display_numbers() {
 
     //PORTD = digits[n % 10];
     for (int j = 0; j <= 7; j++) {
-      if (bitRead(digits[n % 10], j)) {
-        digitalWrite(j, PIN_OFF);
+      if (bitRead(digits[n % 10], anode_pins[j])) {
+        digitalWrite(anode_pins[j], PIN_OFF);
       } else {
-        digitalWrite(j, PIN_ON);
+        digitalWrite(anode_pins[j], PIN_ON);
       }
     }
 

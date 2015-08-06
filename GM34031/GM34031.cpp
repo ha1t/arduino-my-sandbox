@@ -46,7 +46,7 @@ void display_numbers() {
     }
 
     digitalWrite(cathode_pins[i], COMMON_ON);
-    delayMicroseconds(100);
+    delayMicroseconds(300);
     digitalWrite(cathode_pins[i], COMMON_OFF);
     n = n / 10; // 10で割る
   }

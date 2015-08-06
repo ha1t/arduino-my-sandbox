@@ -37,8 +37,8 @@ void display_numbers() {
   for (int i = 0; i < number_of_cathode_pins; i++) {
 
     //PORTD = digits[n % 10];
-    for (int j = 0; j <= 7; j++) {
-      if (bitRead(digits[n % 10], anode_pins[j])) {
+    for (int j = 0; j < number_of_anode_pins; j++) {
+      if (bitRead(digits[n % 10], j)) {
         digitalWrite(anode_pins[j], PIN_OFF);
       } else {
         digitalWrite(anode_pins[j], PIN_ON);

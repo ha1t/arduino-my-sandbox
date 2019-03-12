@@ -11,8 +11,16 @@
 #include <Wire.h>
 #endif
 
-// BME280I2C bme;
-BME280I2C bme(2, 1, 5, 3, 0, 4); // Indoor Navigation
+/*
+Connecting the BME280 Sensor:
+Sensor              ->  Board
+-----------------------------
+Vin (Voltage In)    ->  3.3V
+Gnd (Ground)        ->  Gnd
+SDA (Serial Data)   ->  A4 on Uno/Pro-Mini, 20 on Mega2560/Due, 2 Leonardo/Pro-Micro
+SCK (Serial Clock)  ->  A5 on Uno/Pro-Mini, 21 on Mega2560/Due, 3 Leonardo/Pro-Micro
+*/
+BME280I2C bme;
 void printBME280Data(Stream * client);
 void printBME280CalculatedData(Stream* client);
 
@@ -26,7 +34,16 @@ U8G2_SSD1306_128X64_NONAME_F_4W_SW_SPI u8g2(
 );
 
 void setup(void) {
+  delay(3000);
   u8g2.begin();
+  u8g2.clearBuffer();          // clear the internal memory
+  u8g2.setFont(u8g2_font_ncenB08_tr); // choose a suitable font
+  u8g2.drawStr(0,10,"Loading...");  // write something to the internal memory
+  u8g2.sendBuffer();          // transfer internal memory to the display
+  delay(1000);
+
+  Wire.begin();
+
   while(!bme.begin()){
     delay(1000);
   }
@@ -34,18 +51,17 @@ void setup(void) {
 
 void loop(void) {
 
-  bool metric = true;
   float temp(NAN), hum(NAN), pres(NAN);
-  uint8_t pressureUnit(1);
-  bme.read(pres, temp, hum, metric, pressureUnit);
+  BME280::TempUnit tempUnit(BME280::TempUnit_Celsius);
+  BME280::PresUnit presUnit(BME280::PresUnit_Pa);
+  bme.read(pres, temp, hum, tempUnit, presUnit);
 
   u8g2.clearBuffer();         // clear the internal memory
   u8g2.setFont(u8g2_font_ncenB14_tr); // choose a suitable font
   u8g2.drawStr(0,20, (String(temp) + "'C").c_str());  // write something to the internal memory
   u8g2.drawStr(0,40, (String(hum) + "%").c_str());
-  u8g2.drawStr(0,60, (String(pres) + "hPa").c_str());
+  u8g2.drawStr(0,60, (String(pres / 100) + "hPa").c_str());
   u8g2.sendBuffer();          // transfer internal memory to the display
 
   delay(1350);  
 }
-

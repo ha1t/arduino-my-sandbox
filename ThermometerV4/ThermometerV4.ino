@@ -20,7 +20,18 @@ Gnd (Ground)        ->  Gnd
 SDA (Serial Data)   ->  A4 on Uno/Pro-Mini, 20 on Mega2560/Due, 2 Leonardo/Pro-Micro
 SCK (Serial Clock)  ->  A5 on Uno/Pro-Mini, 21 on Mega2560/Due, 3 Leonardo/Pro-Micro
 */
-BME280I2C bme;
+// Indoor Setting
+BME280I2C::Settings settings(
+  BME280::OSR_X2, // temp
+  BME280::OSR_X1, // hum
+  BME280::OSR_X16, // pres
+  BME280::Mode_Forced,
+  BME280::StandbyTime_1000ms,
+  BME280::Filter_16,
+  BME280::SpiEnable_False,
+  0x76 // I2C address. I2C specific.
+);
+BME280I2C bme(settings);
 void printBME280Data(Stream * client);
 void printBME280CalculatedData(Stream* client);
 

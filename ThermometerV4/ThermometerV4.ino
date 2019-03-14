@@ -1,4 +1,5 @@
 // https://gist.github.com/ha1t/ee1fdc6dded24a272f44c788c200bd00
+// https://github.com/finitespace/BME280 2.3.0
 
 #include <Arduino.h>
 #include <U8g2lib.h>
